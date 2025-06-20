@@ -1,0 +1,5 @@
+vsim -f sknobs/sim.knobs +total_cycles=50  +reset_cycles=5  +tail_reset_cycles=5
+vsim -f sknobs/sim.knobs +total_cycles=60  +reset_cycles=5  +tail_reset_cycles=10
+vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=10
+vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=4
+vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=3

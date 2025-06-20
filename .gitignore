@@ -1,0 +1,13 @@
+# Ignore simulation logs
+results/
+results/*
+
+# Ignore QuestaSim work directory and temporary files
+work/
+work/*
+vsim.wlf
+vsim_stacktrace.vstf
+transcript
+*.log
+*.vcd
+*.ucdb

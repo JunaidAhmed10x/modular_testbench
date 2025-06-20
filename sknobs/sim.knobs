@@ -1,0 +1,7 @@
+-c
+-suppress 144
+-L /home/junaid/questasim/uvm-1.2
++UVM_TESTNAME=counter_test
+work.tb_top
+-do "run -all; quit"
+-f sknobs/debug.knobs
