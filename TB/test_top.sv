@@ -32,8 +32,6 @@ class counter_test extends uvm_test;
 
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
-    seq.clp     = clp;
-    rst_seq.clp = clp;
   endfunction
 
   function void end_of_elaboration_phase(uvm_phase phase);
