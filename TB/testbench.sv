@@ -3,7 +3,7 @@
   import uvm_pkg::*;
   `include "uvm_macros.svh"
 `endif
-  
+
  module tb_top;
 
     // Clock generation
