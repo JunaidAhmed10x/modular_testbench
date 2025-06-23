@@ -33,11 +33,11 @@ This:
 
 A single testcase can read multiple runtime parameters passed via command-line, such as:
 
-vsim -f sknobs/sim.knobs +total_cycles=50  +reset_cycles=5  +tail_reset_cycles=5
-vsim -f sknobs/sim.knobs +total_cycles=60  +reset_cycles=5  +tail_reset_cycles=10
-vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=10
-vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=4
-vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=3
+- vsim -f sknobs/sim.knobs +total_cycles=50  +reset_cycles=5  +tail_reset_cycles=5
+- vsim -f sknobs/sim.knobs +total_cycles=60  +reset_cycles=5  +tail_reset_cycles=10
+- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=10
+- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=4
+- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=3
 
 This allows the same test to execute with different configurations, improving coverage and test reuse.
 
