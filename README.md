@@ -61,13 +61,13 @@ work.tb_top
 
 Sets UVM verbosity levels for different components of the testbench:
 
-+uvm_set_verbosity=uvm_test_top.env_h,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.seq,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.rst_seq.scb_h,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.env_h.scb_h,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.env_h.ag_h,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.env_h.ag_h.mon_h,_ALL_,UVM_LOW,time,0
-+uvm_set_verbosity=uvm_test_top.env_h.ag_h.drv_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.env_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.seq,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.rst_seq.scb_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.env_h.scb_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.env_h.ag_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.env_h.ag_h.mon_h,_ALL_,UVM_LOW,time,0
+- +uvm_set_verbosity=uvm_test_top.env_h.ag_h.drv_h,_ALL_,UVM_LOW,time,0
 
 This allows centralized control of simulation behavior and debug visibility without editing the testbench code.
 
