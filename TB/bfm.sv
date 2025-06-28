@@ -6,25 +6,18 @@
 `ifndef COUNTER_BFM_SV
 `define COUNTER_BFM_SV
 
-interface counter_bfm(input bit clk);
-  logic       rstn;
-  logic       enable;
-  logic [3:0] out;
+interface alu_bfm(input bit clk);
 
-  // Clocking block for optional RTL modules
-  clocking driver_cb @(posedge clk);
-    default input #1 output #1;
-    output rstn, enable;
-  endclocking
+  logic rstn;
+  logic modo;
+  logic [2:0] op;
+  logic [5:0] A;
+  logic [5:0] B;
 
-  clocking monitor_cb @(posedge clk);
-    default input #1 output #1;
-    input out, rstn, enable;
-  endclocking
-
-  // Modports (for modules only, not used in UVM)
-  modport DRIVER  (clocking driver_cb, input clk);
-  modport MONITOR (clocking monitor_cb, input clk);
+  // Outputs from DUT
+  logic [5:0] resultado;
+  logic carryout;
+  logic zero;
 
 endinterface
 

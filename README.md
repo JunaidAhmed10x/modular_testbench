@@ -14,6 +14,10 @@ This project uses a UVM-based SystemVerilog testbench with a command-line proces
 - QuestaSim installed and accessible from terminal
 - UVM 1.2 library available at: /home/**/questasim/uvm-1.2
 
+## All in one command
+- make
+- this will build, run tests, logs result and wave forms
+
 ## 🚀 Compilation
 
 To compile the design and testbench:
@@ -33,11 +37,12 @@ This:
 
 A single testcase can read multiple runtime parameters passed via command-line, such as:
 
-- vsim -f sknobs/sim.knobs +total_cycles=50  +reset_cycles=5  +tail_reset_cycles=5
-- vsim -f sknobs/sim.knobs +total_cycles=60  +reset_cycles=5  +tail_reset_cycles=10
-- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=10
-- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=4
-- vsim -f sknobs/sim.knobs +total_cycles=100 +reset_cycles=10 +tail_reset_cycles=3
+ - vsim -f sknobs/sim.knobs +modo=0 +op=1 +num_req=10 +vcd_name=test_1.vcd
+ - vsim -f sknobs/sim.knobs +modo=0 +op=1 +num_req=10 +vcd_name=test_2.vcd
+ - vsim -f sknobs/sim.knobs +modo=0 +op=2 +num_req=10 +vcd_name=test_3.vcd
+ - vsim -f sknobs/sim.knobs +modo=0 +op=3 +num_req=10 +vcd_name=test_4.vcd
+ - vsim -f sknobs/sim.knobs +modo=0 +op=4 +num_req=10 +vcd_name=test_5.vcd
+ - vsim -f sknobs/sim.knobs +modo=0 +op=5 +num_req=10 +vcd_name=test_6.vcd
 
 This allows the same test to execute with different configurations, improving coverage and test reuse.
 
@@ -52,7 +57,7 @@ Contains general simulation options:
 -c
 -suppress 144
 -L /home/junaid/questasim/uvm-1.2
-+UVM_TESTNAME=counter_test
++UVM_TESTNAME=alu_test
 work.tb_top
 -do "run -all; quit"
 -f sknobs/debug.knobs

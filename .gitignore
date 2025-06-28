@@ -5,6 +5,8 @@ results/*
 # Ignore QuestaSim work directory and temporary files
 work/
 work/*
+waveform/
+waveform/*
 vsim.wlf
 vsim_stacktrace.vstf
 transcript

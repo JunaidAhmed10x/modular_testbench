@@ -4,7 +4,7 @@ TOP_MODULE   = tb_top
 FLIST        = filelist.f
 ARGS_FILE    = regression.txt
 
-all: build run_tests
+all: build run_tests move_vcd
 
 clean:
 	rm -rf transcript vsim.wlf *.log *.vcd *.ucdb results work
@@ -12,6 +12,10 @@ clean:
 build:
 	vlib work
 	vlog -sv -mfcu -f $(FLIST) -L $(UVM_LIB_PATH)
+
+move_vcd:
+	mkdir -p waveform
+	mv -v *.vcd waveform/
 
 run_tests:
 	@mkdir -p results

@@ -1,49 +1,57 @@
-
 `ifndef UVM_MACROS_INCLUDED
   import uvm_pkg::*;
   `include "uvm_macros.svh"
 `endif
+
+`ifndef BASE_SEQUENCE_SV
+`define BASE_SEQUENCE_SV
+
 class main_sequence extends uvm_sequence #(sequence_item);
   `uvm_object_utils(main_sequence)
 
-  sequence_item counter_stimulus;
+  //command line argumets
+  //NOTE : the name of command line argument must differ from the name of sequence item. if same then to use the value of knob local::modo
+  bit modo;
+  bit [2:0] op;
 
-  int total_cycles = 35;
-  string arg;
   uvm_cmdline_processor clp;
+  sequence_item req;
 
   function new(string name = "main_sequence");
     super.new(name);
+    req = sequence_item::type_id::create("req");
   endfunction
 
-  // Get simulation arguments from command line
-  function void get_arguments();
-    string arg;
-
-    if (clp.get_arg_value("+total_cycles=", arg)) begin
-      total_cycles = arg.atoi();
-      `uvm_info("CMDLINE", $sformatf("Received total_cycles = %0d", total_cycles), UVM_LOW)
-    end
-  endfunction
-
-  // Main stimulus generation
-  task body();
+  virtual task pre_body();
     get_arguments();
-
-    `uvm_info("MAIN_SEQ", "********* MAIN SEQUENCE STARTED *********", UVM_LOW)
-    for (int i = 0; i < total_cycles; i++) begin
-      counter_stimulus = sequence_item::type_id::create("counter_stimulus");
-      start_item(counter_stimulus);
-
-      assert(counter_stimulus.randomize() with {
-        stim_index == i;
-        rstn == 1;          // Reset handled externally
-        enable == 1;        // Stimulus always enabled during main phase
-      });
-
-      finish_item(counter_stimulus);
-    end
-    `uvm_info("MAIN_SEQ", "********* MAIN SEQUENCE COMPLETED *********", UVM_LOW)
   endtask
 
+  task body();
+      start_item(req);
+      if (!req.randomize() with {
+      req.rstn == 1;
+      req.modo == local::modo;   //since name of sequence item "modo" is same as the name of the knob "modo", otherwise a radom value will generated not the value passed from knob
+      req.op   == local::op;
+    })
+    begin
+      `uvm_error("SEQ", "Randomization failed")
+    end
+    `uvm_info(get_type_name(), $sformatf("SENT item   : %s", req.convert2string()), UVM_LOW)
+
+    finish_item(req);
+  endtask
+
+  function void get_arguments();
+    string val_str;
+    if (clp.get_arg_value("+modo=", val_str)) begin
+      modo = val_str.atoi();
+      `uvm_info("CMDLINE", $sformatf("Received modo = %0d", modo), UVM_LOW)
+    end
+    if (clp.get_arg_value("+op=", val_str)) begin
+      op = val_str.atoi();
+      `uvm_info("CMDLINE", $sformatf("Received op = %0d", op), UVM_LOW)
+    end
+  endfunction
 endclass
+
+`endif

@@ -3,49 +3,46 @@
   `include "uvm_macros.svh"
 `endif
 
+`ifndef RESET_SEQUENCE_SV
+`define RESET_SEQUENCE_SV
+
 class reset_sequence extends uvm_sequence #(sequence_item);
   `uvm_object_utils(reset_sequence)
 
-  // Reference to command-line processor, to be set externally
+  int unsigned reset_cycles = 5;
+  sequence_item req;
   uvm_cmdline_processor clp;
-
-  // Default reset duration
-  int reset_cycles = 5;
 
   function new(string name = "reset_sequence");
     super.new(name);
-  endfunction
+    req = sequence_item::type_id::create("reset_req");
+endfunction
 
- // Main reset sequence body
   task body();
     get_arguments();
-
-    `uvm_info("RESET_SEQ", "Reset sequence started", UVM_LOW)
-
     for (int i = 0; i < reset_cycles; i++) begin
-      sequence_item item = sequence_item::type_id::create("reset_item");
-      start_item(item);
-      assert(item.randomize() with {
-        rstn == 0;
-        enable == 0;
-      });
-      finish_item(item);
+      start_item(req);
+      if (!req.randomize() with {
+        req.rstn == 0;
+        req.A == 0;
+        req.B == 0;
+        req.op == 0;
+        req.rstn == 0;
+      })
+      begin
+       `uvm_error(get_type_name(), "Randomization failed for req with A == 2")
+      end
+      finish_item(req);
     end
-    `uvm_info("RESET_SEQ", "Reset sequence completed", UVM_LOW)
   endtask
 
   function void get_arguments();
-    string arg; //
-    if (clp != null) begin
-      int val;
-      if (clp.get_arg_value("+reset_cycles=", arg)) begin
-        reset_cycles = arg.atoi();
-        `uvm_info("RESET_SEQ", $sformatf("Received reset_cycles = %0d", reset_cycles), UVM_LOW)
-      end
-    end
-    else begin
-      `uvm_error("RESET_SEQ", "Command-line processor (clp) is NULL. Make sure to assign it from the test in connect_phase.")
+    string val_str;
+
+    if (clp.get_arg_value("+reset_cycles=", val_str)) begin
+      reset_cycles = val_str.atoi();
+      `uvm_info("CMDLINE", $sformatf("Received reset_cycles = %0d", reset_cycles), UVM_LOW)
     end
   endfunction
-
 endclass
+`endif

@@ -27,10 +27,15 @@ class environment extends uvm_env;
     //------------------------
     //CONNECT PHASE
     //------------------------
+   // Connect Phase
     virtual function void connect_phase(uvm_phase phase);
       super.connect_phase(phase);
-      ag_h.mon_h.monitor_analysis_port.connect(scb_h.analysis_imp);
 
+      // Monitor → Scoreboard (output)
+      ag_h.mon_h.monitor_analysis_port.connect(scb_h.mon_analysis_imp);
+
+      // Driver → Scoreboard (input)
+      ag_h.drv_h.driver_analysis_port.connect(scb_h.drv_analysis_imp);
     endfunction
 
   endclass
